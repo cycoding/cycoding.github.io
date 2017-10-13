@@ -48,7 +48,6 @@
     );
   }
 
-
   // email form submission handler
   function emailLogin() {
     var emailAddress = document.getElementById("email").value;
@@ -57,6 +56,14 @@
       {emailAddress: emailAddress},
       loginCallback
     );
+  }
+
+  function onShare() {
+		FB.ui({
+		  method: 'feed',
+		  link: 'https://developers.facebook.com/docs/',
+		  caption: 'Share from my bad app',
+		}, function(response){});
   }
 </script>
 <body>
@@ -69,6 +76,9 @@
 <div>OR</div>
 <input placeholder="email" id="email"/>
 <button onclick="emailLogin();">Login via Email</button>
+
+<p> Facebook Share </p>
+<button onclick="onShare();">Share</button>
 
 </body>
 </html>
