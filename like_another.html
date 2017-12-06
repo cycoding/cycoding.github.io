@@ -9,21 +9,38 @@
 
 <div id="fb-root"></div>
 <script>
-
-
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.yuecai.sb.facebook.com/assets.php/cs_CZ/sdk.js#xfbml=1&version=v2.8&appId=683332411784596";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : 683332411784596,
+      cookie     : true,  // enable cookies to allow the server to access
+                          // the session
+      xfbml      : true,  // parse social plugins on this page
+      version    : 'v2.9' // use graph api version 2.8
+    });
+    console.log('start to parse');
+    FB.XFBML.parse(document.getElementById('videoContainer'));                 
+    FB.Event.subscribe('xfbml.render', renderFinished);
+    function renderFinished() {
+      console.log('Render finished');
+    }
+  };
+  (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 </script>
-
-<p>Hello World</p>
-
-<div class="fb-like" data-layout="standard" data-action="like" data-show-faces="false" data-href='http://gamifique.eurozpravy.cz/novinky/2425-do-civilization-vi-se-chysta-makedonie-s-alexandrem-velikym-v-cele' data-share="true"></div>
-
+<meta charset="UTF-8">
+</head>
+<body>
+  <div id="videoContainer">
+    <div class="fb-video" 
+      data-href="https://www.facebook.com/video.php?v=812315118941066" 
+      data-autoplay="true" 
+      data-width="640" 
+      data-show-text="false"></div>
+</div>
 </body>
 </html>
