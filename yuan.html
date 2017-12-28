@@ -22,9 +22,18 @@
   if (d.getElementById(id)) return;
   js = d.createElement(s);
   js.id = id;
-  js.src = 'https://connect.fionafeng.sb.facebook.com/assets.php/en_US/sdk.js#xfbml=1&version=v2.10';
+  js.src = "//connect.fionafeng.sb.facebook.net/assets.php/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '281752655572012',
+    xfbml      : true,
+    version    : 'v2.7'
+  });
+};
+</script>
 
 <div>The button should be right below this line</div>
 <div class="fb-like" data-href="https://mikesnare.github.io" data-layout="button_count"
