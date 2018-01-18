@@ -1,93 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Github Account Kit Login</title>
+	<title>Github Facebook Login</title>
 	<meta property='fb:app_id' content='602533583469155'/>
 	<meta property='og:type' content='website'/>
 </head>
 <!-- HTTPS required. HTTP will give a 403 forbidden response -->
 <script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
 
+
 <script>
-  // initialize Account Kit with CSRF protection
-  AccountKit_OnInteractive = function(){
-    AccountKit.init(
-      {
-        appId:"602533583469155", 
-        state:"abcd", 
-        version:"v1.1",
-        fbAppEventsEnabled:true,
-        redirect:"https://cycoding.github.io/"
-      }
-    );
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '602533583469155',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+      
+    FB.AppEvents.logPageView();
+      
   };
 
-  // login callback
-  function loginCallback(response) {
-    if (response.status === "PARTIALLY_AUTHENTICATED") {
-      var code = response.code;
-      var csrf = response.state;
-      // Send code to server to exchange for access token
-    }
-    else if (response.status === "NOT_AUTHENTICATED") {
-      // handle authentication failure
-    }
-    else if (response.status === "BAD_PARAMS") {
-      // handle bad parameters
-    }
-  }
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 
-  // phone form submission handler
-  function smsLogin() {
-    var countryCode = document.getElementById("country_code").value;
-    var phoneNumber = document.getElementById("phone_number").value;
-    AccountKit.login(
-      'PHONE', 
-      {countryCode: countryCode, phoneNumber: phoneNumber}, // will use default values if not specified
-      loginCallback
-    );
-  }
 
-  // email form submission handler
-  function emailLogin() {
-    var emailAddress = document.getElementById("email").value;
-    AccountKit.login(
-      'EMAIL',
-      {emailAddress: emailAddress},
-      loginCallback
-    );
-  }
-
-  function onShare() {
-		FB.ui({
-		  method: 'feed',
-		  link: 'https://cycoding.github.io/login',
-		  caption: 'Share from my bad app',
-		}, function(response){});
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      alert(response);
+    });
   }
 </script>
 <body>
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=602533583469155";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<p>Hello FB login</p>
 
-<p>Hello Account Kit</p>
 
-<input value="+1" id="country_code" />
-<input placeholder="phone number" id="phone_number"/>
-<button onclick="smsLogin();">Login via SMS</button>
-<div>OR</div>
-<input placeholder="email" id="email"/>
-<button onclick="emailLogin();">Login via Email</button>
-
-<p> Facebook Share </p>
-<button onclick="onShare();">Share</button>
+<fb:login-button 
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
 
 </body>
 </html>
